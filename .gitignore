@@ -1,0 +1,5 @@
+roms/*
+*.o
+*~
+Disassembler.cpp
+Disassembler.h

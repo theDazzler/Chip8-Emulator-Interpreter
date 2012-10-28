@@ -202,10 +202,12 @@ void Chip8::decode(unsigned short opcode)
         
         //Cxkk - RND Vx, byte
         case 0xC000:
+        	this->RND(opcode & SECOND_NIBBLE_MASK, opcode & SECOND_BYTE_MASK);
         break;
         
         //Dxyn - DRW Vx, Vy, nibble
         case 0xD000:
+        	this->DRW(opcode & SECOND_NIBBLE_MASK, opcode & THIRD_NIBBLE_MASK, opcode & FOURTH_NIBBLE_MASK);
         break;
         
         case 0xE000:
@@ -213,10 +215,12 @@ void Chip8::decode(unsigned short opcode)
         	{
         		//Ex9E - SKP Vx
         		case 0x000E:
+        			this->SKP(opcode & SECOND_NIBBLE_MASK);
         		break;
         		
         		//ExA1 - SKNP Vx
         		case 0x0001:
+        			this->SKNP(opcode & SECOND_NIBBLE_MASK);
         		break;
         	}
         break;
@@ -226,23 +230,27 @@ void Chip8::decode(unsigned short opcode)
         	{
         		//Fx07 - LD Vx, DT
         		case 0x0007:
-        			
+        			this->LDF07(opcode & SECOND_NIBBLE_MASK);
         		break;
         		
         		//Fx0A - LD Vx, K
         		case 0x000A:
+        			this->LDF0A(opcode & SECOND_NIBBLE_MASK);
         		break;
         		
         		//Fx15 - LD DT, Vx
         		case 0x0015:
+        			this->LDF15(opcode & SECOND_NIBBLE_MASK);
         		break;
         		
         		//Fx18 - LD ST, Vx
         		case 0x0018:
+        			this->LDF18(opcode & SECOND_NIBBLE_MASK);
         		break;
         		
         		//Fx1E - ADD I, Vx
         		case 0x001E:
+        			this->LDF1E(opcode & SECOND_NIBBLE_MASK);
         		break;
         		
         		//Fx29 - LD F, Vx

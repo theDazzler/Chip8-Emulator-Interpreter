@@ -590,18 +590,107 @@ void Chip8::SKNP(unsigned short x)
 * Set Vx = delay timer value.
 * The value of DT is placed into Vx.
 */
-void Chip8::LDF7(unsigned short x)
+void Chip8::LDF07(unsigned short x)
 {
 	this->V[x] = this->delayTimer;
+	this->PC += 2;
 }
 
+/**
+* Fx0A - LD Vx, K
+* Wait for a key press, store the value of the key in Vx.
+* All execution stops until a key is pressed, then the value of that key is stored in Vx.
+*/
+void Chip8::LDF0A(unsigned short x)
+{
+	
+}
 
+/**
+* Fx15 - LD DT, Vx
+* Set delay timer = Vx.
+* DT is set equal to the value of Vx.
+*/
+void Chip8::LDF15(unsigned short x)
+{
+	this->delayTimer = this->V[x];
+	this->PC += 2;
+}
 
+/**
+* Fx18 - LD ST, Vx
+* Set sound timer = Vx.
+* ST is set equal to the value of Vx..
+*/
+void Chip8::LDF18(unsigned short x)
+{
+	this->soundTimer = this->V[x];
+	this->PC += 2;
+}
 
+/**
+* Fx1E - ADD I, Vx
+* Set I = I + Vx.
+* The values of I and Vx are added, and the results are stored in I.
+*/
+void Chip8::LDF1E(unsigned short x)
+{
+	this->I += this->V[x];
+	this->PC += 2;
+}
 
+/**
+* Fx29 - LD F, Vx
+* Set I = location of sprite for digit Vx.
+* The value of I is set to the location for the hexadecimal sprite 
+* corresponding to the value of Vx.
+*/
+void Chip8::LDF29(unsigned short x)
+{
+	
+}
 
+/**
+* Fx33 - LD B, Vx
+* Store BCD representation of Vx in memory locations I, I+1, and I+2.
+* The interpreter takes the decimal value of Vx, and places the hundreds 
+* digit in memory at location in I, the tens digit at location I+1, and the
+* ones digit at location I+2.
+*/
+void Chip8::LDF33(unsigned short x)
+{
+	
+}
 
+/**
+* Fx55 - LD [I], Vx
+* Store registers V0 through Vx in memory starting at location I.
+* The interpreter copies the values of registers V0 through Vx into memory,
+* starting at the address in I.
+*/
+void Chip8::LDF55(unsigned short x)
+{
+	for(int i = 0; i <= x; i++)
+	{
+		this->ram[this->I + i] = this->V[i];
+	}
+	this->PC += 2;
+}
 
+/**
+* Fx65 - LD Vx, [I]
+* Read registers V0 through Vx from memory starting at location I.
+* The interpreter reads values from memory starting at location I into registers V0 through Vx.
+*/
+void Chip8::LDF65(unsigned short x)
+{
+	for(int i = 0; i <= x; i++)
+	{
+		this->V[i] = this->ram[this->I + i];
+	}
+	
+	this->PC += 2;
+}
 
 
 
